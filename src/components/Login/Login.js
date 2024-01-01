@@ -80,9 +80,9 @@
 
 // export default Login;
 
-import React, { useState, useEffect, useReducer } from "react";
-
+import React, { useState, useEffect, useReducer, useContext } from "react";
 import Card from "../UI/Card/Card";
+import AuthContext from "../../store/AuthContext/auth-context";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
 const emailState = (state, action) => {
@@ -113,7 +113,7 @@ const collegeState = (state, action) => {
   return { value: "", isValid: false };
 };
 
-const Login = (props) => {
+const Login = () => {
   // const [enteredEmail, setEnteredEmail] = useState("");
   // const [emailIsValid, setEmailIsValid] = useState();
   // const [enteredPassword, setEnteredPassword] = useState("");
@@ -198,10 +198,10 @@ const Login = (props) => {
     // setCollegeIsValid(enteredCollege.trim().length > 0);
     setCollegeReducer({ type: "BLUR_INPUT" });
   };
-
+  const loginCtx = useContext(AuthContext);
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(
+    loginCtx.onLogin(
       emailReducer.value,
       passwordReducer.value,
       collegeReducer.value
